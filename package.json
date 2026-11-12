@@ -1,6 +1,6 @@
 {
   "name": "@suplaser/onces-mcp",
-  "version": "0.2.0",
+  "version": "0.6.0",
   "description": "A TypeScript MCP server backed by the ONES Open API and personal API keys.",
   "repository": {
     "type": "git",

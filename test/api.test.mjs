@@ -120,8 +120,9 @@ test('MCP queries return structured data and isError for missing credentials', a
   try {
     await Promise.all([server.connect(st), client.connect(ct)]);
     const tools = (await client.listTools()).tools;
-    assert.equal(tools.length, 11);
-    assert.ok(tools.filter((tool) => tool.name !== 'ones_auth_status').every((tool) => tool.annotations.readOnlyHint));
+    assert.equal(tools.length, 30);
+    assert.ok(tools.slice(0, 19).every((tool) => tool.annotations.readOnlyHint));
+    assert.ok(tools.slice(19).every((tool) => tool.annotations.readOnlyHint === false));
     const result = await client.callTool({ name: 'ones_list_projects', arguments: { teamID: 'team1' } });
     assert.equal(result.structuredContent.list[0].id, 'p1');
     state.key = null;

@@ -95,6 +95,12 @@ test('MCP tool discovery and calls return status without key material', async ()
       'ones_auth_status', 'ones_list_projects', 'ones_get_project', 'ones_list_issues', 'ones_get_issue',
       'ones_get_current_user', 'ones_list_teams', 'ones_search_users', 'ones_list_issue_types',
       'ones_search_issue_fields', 'ones_get_issue_form_fields',
+      'ones_get_field_options', 'ones_list_issue_statuses', 'ones_list_issue_workflows',
+      'ones_list_issue_comments', 'ones_list_issue_worklogs', 'ones_get_issue_worklog',
+      'ones_search_issues', 'ones_get_daily_hours',
+      'ones_create_issue', 'ones_update_issue', 'ones_execute_issue_workflow', 'ones_add_issue_worklog',
+      'ones_send_issue_comment', 'ones_update_issue_comment', 'ones_delete_issue_comment', 'ones_update_issue_worklog',
+      'ones_delete_issue_worklog', 'ones_set_issue_estimated_hours', 'ones_set_issue_remaining_hours',
     ]);
     const result = await client.callTool({ name: 'ones_auth_status', arguments: {} });
     assert.equal(result.structuredContent.configured, true);
@@ -114,7 +120,7 @@ test('real stdio server initializes and answers tools/list with no stdout contam
   transport.stderr?.on('data', (chunk) => { stderr += chunk.toString(); });
   try {
     await client.connect(transport);
-    assert.equal((await client.listTools()).tools.length, 11);
+    assert.equal((await client.listTools()).tools.length, 30);
     const result = await client.callTool({ name: 'ones_auth_status', arguments: {} });
     assert.equal(result.structuredContent.source, 'environment');
     assert.ok(!JSON.stringify(result).includes(SENTINEL));
