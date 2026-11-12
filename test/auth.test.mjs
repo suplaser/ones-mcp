@@ -91,7 +91,11 @@ test('MCP tool discovery and calls return status without key material', async ()
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   try {
     await Promise.all([server.connect(serverTransport), client.connect(clientTransport)]);
-    assert.deepEqual((await client.listTools()).tools.map((tool) => tool.name), ['ones_auth_status', 'ones_list_projects', 'ones_get_project', 'ones_list_issues', 'ones_get_issue']);
+    assert.deepEqual((await client.listTools()).tools.map((tool) => tool.name), [
+      'ones_auth_status', 'ones_list_projects', 'ones_get_project', 'ones_list_issues', 'ones_get_issue',
+      'ones_get_current_user', 'ones_list_teams', 'ones_search_users', 'ones_list_issue_types',
+      'ones_search_issue_fields', 'ones_get_issue_form_fields',
+    ]);
     const result = await client.callTool({ name: 'ones_auth_status', arguments: {} });
     assert.equal(result.structuredContent.configured, true);
     assert.ok(!JSON.stringify(result).includes(SENTINEL));
@@ -110,7 +114,7 @@ test('real stdio server initializes and answers tools/list with no stdout contam
   transport.stderr?.on('data', (chunk) => { stderr += chunk.toString(); });
   try {
     await client.connect(transport);
-    assert.equal((await client.listTools()).tools.length, 5);
+    assert.equal((await client.listTools()).tools.length, 11);
     const result = await client.callTool({ name: 'ones_auth_status', arguments: {} });
     assert.equal(result.structuredContent.source, 'environment');
     assert.ok(!JSON.stringify(result).includes(SENTINEL));

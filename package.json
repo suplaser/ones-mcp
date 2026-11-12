@@ -1,7 +1,15 @@
 {
   "name": "@suplaser/onces-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A TypeScript MCP server backed by the ONES Open API and personal API keys.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suplaser/ones-mcp.git"
+  },
+  "homepage": "https://github.com/suplaser/ones-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/suplaser/ones-mcp/issues"
+  },
   "type": "module",
   "bin": {
     "onces-mcp": "dist/index.js"
@@ -21,6 +29,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "start": "node dist/index.js",
+    "setup": "npm run build && node dist/index.js setup",
     "test": "npm run build && node --test test/*.test.mjs",
     "auth:login": "node dist/index.js auth login",
     "auth:status": "node dist/index.js auth status",
@@ -30,8 +39,10 @@
     "@inquirer/prompts": "^8.8.0",
     "@modelcontextprotocol/sdk": "^1.32.2",
     "@napi-rs/keyring": "^2.1.2",
+    "jsonc-parser": "^3.3.1",
     "open": "^11.0.4",
     "proper-lockfile": "^4.1.2",
+    "toml-eslint-parser": "^1.0.3",
     "zod": "^4.0.0"
   },
   "devDependencies": {
